@@ -1,3 +1,6 @@
+
+<img width="768" height="544" alt="C64 (Commodore Business Machines, 1982, C64)_1" src="https://github.com/user-attachments/assets/ea05b5be-5fb1-4e09-ae06-d3aa8ca1a37c" />
+
 # C64 Sprite (Simple Workflow)
 
 This is a Commodore C64 preservation project, and it has been done in Ubuntu on WSL2.
