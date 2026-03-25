@@ -4,6 +4,25 @@ This is a Commodore C64 preservation project, and it has been done in Ubuntu on 
 
 This project uses one source file, one build script, and one output file.
 
+## Prerequisites
+
+- `cc65` toolchain (provides `cl65`, required by `build.sh`)
+- Python 3 with:
+  - `pygame`
+  - `numpy`
+- VICE emulator (`x64`) with C64 ROMs:
+  - `basic`
+  - `chargen`
+  - `kernal`
+
+Ubuntu/WSL2 install example:
+
+```bash
+sudo apt update
+sudo apt install -y cc65 vice python3 python3-pip
+python3 -m pip install --user pygame numpy
+```
+
 Quick start (build + run on VICE):
 
 ```bash
