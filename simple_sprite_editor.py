@@ -191,7 +191,7 @@ def main():
         )
         screen.blit(color_text, (20, SPRITE_HEIGHT * cell_size + 10))
         
-        instr_text1 = font.render("Arrows: Move  SPACE: Toggle  C: Clear  1-3: Color  S: Save  Q: Quit", True, BLACK)
+        instr_text1 = font.render("Arrows: Move  SPACE: Mark/clear pixel  C: Clear all  1-3: Color  S: Save  Q: Quit", True, BLACK)
         screen.blit(instr_text1, (20, SPRITE_HEIGHT * cell_size + 40))
         
         # Handle events

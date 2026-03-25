@@ -47,6 +47,12 @@ Smoke test without leaving VICE open:
 
 Use `simple_sprite_editor.py`, then press `S` to save.
 
+You can launch the editor with:
+
+```bash
+./edit.h
+```
+
 By default, the editor loads existing `sprite_pokes.c` sprite data on startup (if present).
 
 The editor now uses true C64 **multicolor sprite** mode:
@@ -68,7 +74,7 @@ That writes:
 In one terminal sequence:
 
 ```bash
-python3 simple_sprite_editor.py   # press S in editor
+./edit.h                          # press S in editor
 ./run.sh
 ```
 
