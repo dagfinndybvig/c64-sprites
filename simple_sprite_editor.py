@@ -3,6 +3,7 @@
 import numpy as np
 import pygame
 from pathlib import Path
+import re
 
 SPRITE_HEIGHT = 21
 SPRITE_WIDTH_MC = 12  # C64 multicolor sprite width (12 double-width pixels)
@@ -76,6 +77,51 @@ def save_sprite_module(sprite, c_filename="sprite_pokes.c", h_filename="sprite_p
         f.write(sprite_header())
     print(f"Sprite module saved to {c_path} and {h_path}")
 
+
+def bytes_to_sprite(sprite_bytes):
+    """Unpack 63 multicolor sprite bytes into a 12x21 sprite array."""
+    if len(sprite_bytes) != 63:
+        raise ValueError("sprite_data must contain exactly 63 bytes")
+
+    sprite = create_empty_sprite()
+    for row in range(SPRITE_HEIGHT):
+        for byte_index in range(3):
+            packed = int(sprite_bytes[row * 3 + byte_index]) & 0xFF
+            for pixel_index in range(4):
+                shift = 6 - (pixel_index * 2)
+                color = (packed >> shift) & 0x03
+                col = (byte_index * 4) + pixel_index
+                sprite[row, col] = color
+    return sprite
+
+
+def load_sprite_module(c_filename="sprite_pokes.c"):
+    """Load sprite_data from existing generated C file, or return empty sprite."""
+    c_path = Path(__file__).resolve().parent / c_filename
+    if not c_path.exists():
+        return create_empty_sprite()
+
+    try:
+        content = c_path.read_text(encoding="utf-8")
+    except OSError:
+        return create_empty_sprite()
+
+    match = re.search(
+        r"const\s+unsigned\s+char\s+sprite_data\s*\[\s*63\s*\]\s*=\s*\{(.*?)\};",
+        content,
+        re.DOTALL,
+    )
+    if not match:
+        return create_empty_sprite()
+
+    data_block = match.group(1)
+    hex_values = re.findall(r"0x([0-9A-Fa-f]{2})", data_block)
+    if len(hex_values) != 63:
+        return create_empty_sprite()
+
+    sprite_bytes = [int(v, 16) for v in hex_values]
+    return bytes_to_sprite(sprite_bytes)
+
 def main():
     # Initialize pygame
     pygame.init()
@@ -101,8 +147,8 @@ def main():
         (64, 220, 64), # Green (3)
     ]
     
-    # Create sprite
-    sprite = create_empty_sprite()
+    # Load existing generated sprite if present, otherwise start empty
+    sprite = load_sprite_module()
     
     # Cursor position and color
     cursor_row, cursor_col = 10, 6  # Start in center
@@ -145,7 +191,7 @@ def main():
         )
         screen.blit(color_text, (20, SPRITE_HEIGHT * cell_size + 10))
         
-        instr_text1 = font.render("Arrows: Move  SPACE: Toggle  1-3: Color  S: Save C module  Q: Quit", True, BLACK)
+        instr_text1 = font.render("Arrows: Move  SPACE: Toggle  C: Clear  1-3: Color  S: Save  Q: Quit", True, BLACK)
         screen.blit(instr_text1, (20, SPRITE_HEIGHT * cell_size + 40))
         
         # Handle events
@@ -183,6 +229,10 @@ def main():
                 elif event.key == pygame.K_3:
                     current_color = 3
                 
+                # Clear sprite
+                elif event.key == pygame.K_c:
+                    sprite = create_empty_sprite()
+
                 # Save
                 elif event.key == pygame.K_s:
                     save_sprite_module(sprite)

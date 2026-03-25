@@ -25,6 +25,8 @@ Smoke test without leaving VICE open:
 
 Use `simple_sprite_editor.py`, then press `S` to save.
 
+By default, the editor loads existing `sprite_pokes.c` sprite data on startup (if present).
+
 The editor now uses true C64 **multicolor sprite** mode:
 
 - 12x21 editable pixels (each editor pixel is double-width on C64)
@@ -32,6 +34,7 @@ The editor now uses true C64 **multicolor sprite** mode:
 - `2` = Red (`$D027`, sprite color)
 - `3` = Green (`$D026`, shared multicolor 1)
 - `SPACE` toggles current pixel on/off
+- `C` clears the sprite to empty
 
 That writes:
 

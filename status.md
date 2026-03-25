@@ -30,12 +30,14 @@ Smoke test only:
 
 1. Sprite editing and generation:
    - `python3 simple_sprite_editor.py`
+   - On startup, editor loads current `sprite_pokes.c` sprite data if file exists.
    - Controls:
-     - Arrow keys: move cursor
-     - `SPACE`: toggle current pixel on/off
-     - `1`/`2`/`3`: select sprite color slot
-     - `S`: save generated module
-     - `Q`: quit editor
+      - Arrow keys: move cursor
+      - `SPACE`: toggle current pixel on/off
+      - `C`: clear sprite to empty
+      - `1`/`2`/`3`: select sprite color slot
+      - `S`: save generated module
+      - `Q`: quit editor
    - Press `S` to generate:
       - `sprite_pokes.c` (`const unsigned char sprite_data[63]` + color constants)
       - `sprite_pokes.h` (`extern` declaration)
