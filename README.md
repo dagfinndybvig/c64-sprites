@@ -50,7 +50,7 @@ Use `simple_sprite_editor.py`, then press `S` to save.
 You can launch the editor with:
 
 ```bash
-./edit.h
+./edit.sh
 ```
 
 By default, the editor loads existing `sprite_pokes.c` sprite data on startup (if present).
@@ -74,7 +74,7 @@ That writes:
 In one terminal sequence:
 
 ```bash
-./edit.h                          # press S in editor
+./edit.sh                         # press S in editor
 ./run.sh
 ```
 
