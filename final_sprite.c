@@ -35,6 +35,7 @@ int main(void) {
     
     // Blue border to indicate success
     POKE(0xD020, 0x06);  // Blue border
+    POKE(0xD021, 0x07);  // EASY TO FIND: default yellow background
     
     // Main loop with WASD controls
     while (1) {
