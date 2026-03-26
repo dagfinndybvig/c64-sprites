@@ -1,3 +1,5 @@
 __pycache__/
 *.py[cod]
 *.o
+final.prg
+sprite_pokes.c
