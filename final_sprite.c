@@ -27,6 +27,7 @@ int main(void) {
     POKE(0xD025, sprite_multicolor_0);  // Shared multicolor 0
     POKE(0xD026, sprite_multicolor_1);  // Shared multicolor 1
     POKE(0xD027, sprite_color);         // Sprite-specific color
+    POKE(0xD017, 0x01); POKE(0xD01D, 0x01);  // EASY TO FIND: double-size sprite 0 in Y and X
     
     // Set initial position (center of screen)
     POKE(0xD000, x);
